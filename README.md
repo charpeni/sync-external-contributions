@@ -8,7 +8,7 @@ It **does not copy** content of the commit, to respect NDA and privacy it only l
 
 ## Why?
 
-I have done this script because some contracts, projects, or business were not on GitHub has source control. I found it odd that some weeks or months were missing in my GitHub contributions activity as if I was not there. 
+I have done this script because some contracts, projects, or business were not on GitHub as source control. I found it odd that some weeks or months were missing in my GitHub contributions activity as if I was not there. 
 
 #### Should external contributions belong there? 
 Personally I'm not sure, but since private contributions can be showed and some used this to show work activity, why not.
