@@ -1,0 +1,24 @@
+{
+  "name": "sync-external-contributions",
+  "version": "1.0.0",
+  "description": "Sync your external contributions to GitHub",
+  "repository": "charpeni/sync-external-contributions",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint ."
+  },
+  "author": "Nicolas Charpentier <nicolas.charpentier079@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "command-line-args": "~4.0.6",
+    "command-line-usage": "~4.0.0",
+    "prompt-sync": "~4.1.5",
+    "sync-exec": "~0.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
