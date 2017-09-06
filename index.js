@@ -3,8 +3,7 @@ const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
 const prompt = require('prompt-sync')();
 
-const optionDefinitions = [
-  {
+const optionDefinitions = [{
     name: 'source',
     type: String,
     multiple: true,
@@ -49,13 +48,18 @@ const optionDefinitions = [
     defaultOption: true,
     defaultValue: false,
   },
+  {
+    name: 'silent',
+    type: Boolean,
+    description: 'Will not prompt',
+    defaultValue: false,
+  }
 ];
 
 const options = commandLineArgs(optionDefinitions);
 
 if (options.help === true || !options.source || !options.destination) {
-  const sections = [
-    {
+  const sections = [{
       header: 'sync-external-contributions',
       content: 'Syncronize your external contributions into a fake GitHub repo',
     },
@@ -70,13 +74,17 @@ if (options.help === true || !options.source || !options.destination) {
 }
 
 if (!options['dry-run'] && options.reset) {
-  const resetPrompt = prompt(`Are you sure you want to reset ${options.destination}? (N/y) `);
+  if (!options.silent) {
+    var resetPrompt = prompt(`Are you sure you want to reset ${options.destination}? (N/y) `);
+  } else {
+    var resetPrompt = 'y'
+  }
 
   if (['y', 'Y'].includes(resetPrompt)) {
     const firstCommit = '`git rev-list --all | tail -1`';
     const resetStdout = exec(`cd ${options.destination} && git reset --hard ${firstCommit}`).stdout;
 
-    if (resetStdout) {
+    if (resetStdout && !options.silent) {
       console.log(`${options.destination} were successfully reset.`);
     } else {
       console.log('An error occured while resetting the destination repository');
@@ -84,7 +92,9 @@ if (!options['dry-run'] && options.reset) {
   }
 }
 
-const { stdout } = exec(`cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`);
+const {
+  stdout
+} = exec(`cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`);
 
 const commits = stdout
   .split('\n')
@@ -104,9 +114,14 @@ const commits = stdout
     return formattedCommit ? [...formattedCommits, formattedCommit] : formattedCommits;
   }, []);
 
-console.log(`${commits.length} commits were found`);
-
-const syncPrompt = prompt(`Are you sure you want to sync your contributions of ${options.source} into ${options.destination}? (Y/n) `);
+if (!options.silent) {
+  console.log(`${commits.length} commits were found`);
+}
+if (!options.silent) {
+  var syncPrompt = prompt(`Are you sure you want to sync your contributions of ${options.source} into ${options.destination}? (Y/n) `);
+} else {
+  var syncPrompt = 'y'
+}
 
 if (!['y', 'Y', ''].includes(syncPrompt)) {
   process.exit();
@@ -138,11 +153,13 @@ const nbNewCommits = commitSorted.reduce((count, commit) => {
   return count;
 }, 0);
 
-console.log(`${nbNewCommits} commits have been created`);
+if (!options.silent) {
+  console.log(`${nbNewCommits} commits have been created`);
+}
 
-if (options['dry-run']) {
+if (options['dry-run'] && !options.silent) {
   console.log('Dry run executed');
-} else if (!nbNewCommits) {
+} else if (!nbNewCommits && !options.silent) {
   console.log('Nothing to do');
 } else {
   let pushCommand = `cd ${options.destination} && git push origin master`;
@@ -151,11 +168,14 @@ if (options['dry-run']) {
     pushCommand += ' -f';
   }
 
-  const { stderr } = exec(pushCommand);
-
-  if (!stderr) {
-    console.log('External contributions were successfully syncronized to GitHub');
-  } else {
-    console.error(stderr);
+  const {
+    stderr
+  } = exec(pushCommand);
+  if (!options.silent) {
+    if (!stderr) {
+      console.log('External contributions were successfully syncronized to GitHub');
+    } else {
+      console.error(stderr);
+    }
   }
 }

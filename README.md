@@ -53,5 +53,6 @@ Options
   --dry-run              Will execute script without syncing
   --force                Force push to the destination (implicit with reset)
   --reset                Reset the destination repository
+  --silent               Will not prompt
   -h, --help
 ```
