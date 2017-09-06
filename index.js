@@ -22,6 +22,12 @@ const optionDefinitions = [
     defaultValue: 999999,
   },
   {
+    name: 'folder-depth',
+    type: Number,
+    description: 'Specify the level of subfolders to look for repos (default: 1)',
+    defaulValue: 1,
+  },
+  {
     name: 'dry-run',
     type: Boolean,
     description: 'Will execute script without syncing',
@@ -78,7 +84,7 @@ if (!options['dry-run'] && options.reset) {
   }
 }
 
-const { stdout } = exec(`cd ${options.source} && git standup -d ${options.days} -D iso-strict`);
+const { stdout } = exec(`cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`);
 
 const commits = stdout
   .split('\n')
