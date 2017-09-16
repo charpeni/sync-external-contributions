@@ -1,4 +1,4 @@
-# Sync External Contributions
+# Sync External Contributions [![npm](https://img.shields.io/npm/v/sync-external-contributions.svg)](https://www.npmjs.com/package/sync-external-contributions)
 
 ![header](https://user-images.githubusercontent.com/7189823/30006552-96e72362-90c8-11e7-8034-56f45bf72771.jpg)
 
