@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const exec = require('sync-exec');
 const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
