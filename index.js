@@ -3,7 +3,8 @@ const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
 const prompt = require('prompt-sync')();
 
-const optionDefinitions = [{
+const optionDefinitions = [
+  {
     name: 'source',
     type: String,
     multiple: true,
@@ -23,7 +24,8 @@ const optionDefinitions = [{
   {
     name: 'folder-depth',
     type: Number,
-    description: 'Specify the level of subfolders to look for repos (default: 1)',
+    description:
+      'Specify the level of subfolders to look for repos (default: 1)',
     defaulValue: 1,
   },
   {
@@ -53,15 +55,17 @@ const optionDefinitions = [{
     type: Boolean,
     description: 'Will not prompt',
     defaultValue: false,
-  }
+  },
 ];
 
 const options = commandLineArgs(optionDefinitions);
 
 if (options.help === true || !options.source || !options.destination) {
-  const sections = [{
+  const sections = [
+    {
       header: 'sync-external-contributions',
-      content: 'Syncronize your external contributions into a fake GitHub repo',
+      content:
+        'Synchronize your external contributions into a fake GitHub repo',
     },
     {
       header: 'Options',
@@ -74,53 +78,75 @@ if (options.help === true || !options.source || !options.destination) {
 }
 
 if (!options['dry-run'] && options.reset) {
+  let resetPrompt;
+
   if (!options.silent) {
-    var resetPrompt = prompt(`Are you sure you want to reset ${options.destination}? (N/y) `);
+    resetPrompt = prompt(
+      `Are you sure you want to reset ${options.destination}? (N/y) `,
+    );
   } else {
-    var resetPrompt = 'y'
+    resetPrompt = 'y';
   }
 
   if (['y', 'Y'].includes(resetPrompt)) {
     const firstCommit = '`git rev-list --all | tail -1`';
-    const resetStdout = exec(`cd ${options.destination} && git reset --hard ${firstCommit}`).stdout;
+    const resetStdout = exec(
+      `cd ${options.destination} && git reset --hard ${firstCommit}`,
+    ).stdout;
 
     if (resetStdout && !options.silent) {
       console.log(`${options.destination} were successfully reset.`);
     } else {
-      console.log('An error occured while resetting the destination repository');
+      console.log(
+        'An error occured while resetting the destination repository',
+      );
     }
   }
 }
 
-const {
-  stdout
-} = exec(`cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`);
+const { stdout } = exec(
+  `cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`,
+);
 
-const commits = stdout
-  .split('\n')
-  .reduce((formattedCommits, commit) => {
-    let formattedCommit;
+const commits = stdout.split('\n').reduce((formattedCommits, commit) => {
+  let formattedCommit;
 
-    if (commit.match(/^\w{7,9}\s[-]*/)) {
-      formattedCommit = {
-        commit: commit.substring(0, 7),
-        date: commit
-          .match(/[(]\d{4}-\d{2}-\d{2}[T]\d{2}[:]\d{2}:\d{2}[^)]*/)[0]
-          .replace(/\(|\)/g, ''),
-        author: commit.match(/[^<]*(?:<([^>]*)>)$/)[1],
-      };
-    }
+  if (commit.match(/^\w{7,9}\s[-]*/)) {
+    formattedCommit = {
+      commit: commit.substring(0, 7),
+      date: commit
+        .match(/[(]\d{4}-\d{2}-\d{2}[T]\d{2}[:]\d{2}:\d{2}[^)]*/)[0]
+        .replace(/\(|\)/g, ''),
+    };
+  }
 
-    return formattedCommit ? [...formattedCommits, formattedCommit] : formattedCommits;
-  }, []);
+  return formattedCommit
+    ? [...formattedCommits, formattedCommit]
+    : formattedCommits;
+}, []);
 
 if (!options.silent) {
-  console.log(`${commits.length} commits were found`);
+  if (commits.length === 0) {
+    console.error("Couldn't find any commits");
+  } else if (commits.length < 2) {
+    console.log(`${commits.length} commit were found`);
+  } else {
+    console.log(`${commits.length} commits were found`);
+  }
 }
+
+if (!commits.length) {
+  process.exit();
+}
+
+let syncPrompt;
+
 if (!options.silent) {
-  var syncPrompt = prompt(`Are you sure you want to sync your contributions of ${options.source} into ${options.destination}? (Y/n) `);
+  syncPrompt = prompt(
+    `Are you sure you want to sync your contributions of ${options.source} into ${options.destination}? (Y/n) `,
+  );
 } else {
-  var syncPrompt = 'y'
+  syncPrompt = 'y';
 }
 
 if (!['y', 'Y', ''].includes(syncPrompt)) {
@@ -130,7 +156,8 @@ if (!['y', 'Y', ''].includes(syncPrompt)) {
 const commitSorted = commits.sort((a, b) => {
   if (a.date > b.date) {
     return 1;
-  } else if (a.date < b.date) {
+  }
+  if (a.date < b.date) {
     return -1;
   }
 
@@ -140,12 +167,16 @@ const commitSorted = commits.sort((a, b) => {
 const outputFile = 'COMMITS';
 
 const nbNewCommits = commitSorted.reduce((count, commit) => {
-  const grepStdout = exec(`cd ${options.destination} && grep -R ${commit.commit} ${outputFile}`).stdout;
+  const grepStdout = exec(
+    `cd ${options.destination} && grep -R ${commit.commit} ${outputFile}`,
+  ).stdout;
   const isNewCommit = !grepStdout;
 
   if (isNewCommit) {
     if (!options['dry-run']) {
-      exec(`cd ${options.destination} && echo "${commit.commit}" >> ${outputFile} && git add . && git commit -m "${commit.commit}" --date="${commit.date}"`);
+      exec(
+        `cd ${options.destination} && echo "${commit.commit}" >> ${outputFile} && git add . && git commit -m "${commit.commit}" --date="${commit.date}"`,
+      );
     }
     return count + 1;
   }
@@ -168,12 +199,12 @@ if (options['dry-run'] && !options.silent) {
     pushCommand += ' -f';
   }
 
-  const {
-    stderr
-  } = exec(pushCommand);
+  const { stderr } = exec(pushCommand);
   if (!options.silent) {
     if (!stderr) {
-      console.log('External contributions were successfully syncronized to GitHub');
+      console.log(
+        'External contributions were successfully synchronized to GitHub',
+      );
     } else {
       console.error(stderr);
     }

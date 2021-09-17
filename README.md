@@ -2,45 +2,34 @@
 
 ![header](https://user-images.githubusercontent.com/7189823/30006552-96e72362-90c8-11e7-8034-56f45bf72771.jpg)
 
-This script is used to read all your contributions you've done on local repositories with [git-standup](https://github.com/kamranahmedse/git-standup) and create a GitHub contribution activity for every commits that you're the author.
+Reads all your contributions you've authored on local repositories with [git-standup](https://github.com/kamranahmedse/git-standup) and create a GitHub contribution activity for every commits associated with you.
 
-It **does not copy** content of the commit, to respect NDA and privacy it only list all commits SHA you've made and write it to a file. This is totally safe.
+It **does not copy** the content of the commit, to respect NDA and privacy it only list all commits SHA you've authored and write it to a file. This is totally safe.
 
 ## Why?
 
-I have done this script because some contracts, projects, or business were not on GitHub as source control. I found it odd that some weeks or months were missing in my GitHub contributions activity as if I was not there. 
+This script exists because some contracts, projects, or businesses aren't using GitHub as source control. I found it odd that some weeks or months were missing in my GitHub contributions activity as if I wasn't active.
 
-#### Should external contributions belong there? 
-Personally I'm not sure, but since private contributions can be showed and some used this to show work activity, why not.
+#### Should external contributions belong there?
 
-#### Will I use this? 
-I'm not sure either, but if it can help someone I'll be happy.
+To be honest, I'm not sure, but since private contributions can be showed and some are using this to show work activity, why not.
 
-#### Did I've some fun doing this? 
-Hell yeah.
+## Requirement
 
-## Requirements
-
-- [git-standup](https://github.com/kamranahmedse/git-standup)
-- Node
-
-## Installation
-
-```
-npm install -g sync-external-contributions
-```
+- [`git standup`](https://github.com/kamranahmedse/git-standup)
 
 ## Usage
 
 First, you'll need a git repository where the contributions will be synced.
 
-Create it where you want it (ex: `~/external-contributions`), run `git init` inside and push your initial commit with an empty file named `COMMITS`.
+Create it where you want it (e.g. `~/external-contributions`), run `git init` inside and push your initial commit with an empty file named `COMMITS`.
 
 Create your repository on GitHub and add it as origin, origin will be automatically synced after each runs.
 
-To sync every commits that you've done in `~/fake-project` into `~/external-contributions`:
+To sync every commits that you've done in `~/some-project` into `~/external-contributions`:
+
 ```
-sync-external-contributions --source ~/fake-project --destination ~/external-contributions
+npx sync-external-contributions --source ~/some-project --destination ~/external-contributions
 ```
 
 ```
@@ -56,3 +45,7 @@ Options
   --silent               Will not prompt
   -h, --help
 ```
+
+## License
+
+sync-external-contributions is [MIT Licensed](LICENSE).
