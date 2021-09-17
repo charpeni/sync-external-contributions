@@ -4,6 +4,9 @@
   "description": "Sync your external contributions to GitHub",
   "repository": "charpeni/sync-external-contributions",
   "main": "index.js",
+  "bin": {
+    "sync-external-contributions": "index.js"
+  },
   "scripts": {
     "start": "node index.js",
     "lint": "eslint ."
@@ -17,8 +20,9 @@
     "sync-exec": "~0.6.2"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-airbnb-base": "^11.3.2",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "prettier": "^2.4.1"
   }
 }
