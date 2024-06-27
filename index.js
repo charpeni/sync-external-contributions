@@ -195,7 +195,7 @@ if (options['dry-run'] && !options.silent) {
 } else if (!nbNewCommits && !options.silent) {
   console.log('Nothing to do');
 } else {
-  let pushCommand = `cd ${options.destination} && git push origin master`;
+  let pushCommand = `cd ${options.destination} && git push origin main`;
 
   if (options.force || options.reset) {
     pushCommand += ' -f';
