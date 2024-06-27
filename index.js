@@ -67,7 +67,7 @@ if (options.help === true || !options.source || !options.destination) {
     {
       header: 'sync-external-contributions',
       content:
-        'Synchronize your external contributions into a fake GitHub repo',
+        'Synchronize your external contributions into your GitHub account',
     },
     {
       header: 'Options',
@@ -130,8 +130,8 @@ const commits = stdout.split('\n').reduce((formattedCommits, commit) => {
 if (!options.silent) {
   if (commits.length === 0) {
     console.error("Couldn't find any commits");
-  } else if (commits.length < 2) {
-    console.log(`${commits.length} commit were found`);
+  } else if (commits.length === 1) {
+    console.log(`${commits.length} commit was found`);
   } else {
     console.log(`${commits.length} commits were found`);
   }
