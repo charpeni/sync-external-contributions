@@ -28,7 +28,7 @@ const optionDefinitions = [
     type: Number,
     description:
       'Specify the level of subfolders to look for repos (default: 1)',
-    defaulValue: 1,
+    defaultValue: 1,
   },
   {
     name: 'dry-run',
