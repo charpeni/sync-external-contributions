@@ -16,6 +16,7 @@
   "dependencies": {
     "command-line-args": "~4.0.6",
     "command-line-usage": "~4.0.0",
+    "git-standup": "^2.3.2",
     "prompt-sync": "~4.1.5",
     "sync-exec": "~0.6.2"
   },

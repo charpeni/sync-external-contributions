@@ -100,22 +100,22 @@ if (!options['dry-run'] && options.reset) {
       console.log(`${options.destination} were successfully reset.`);
     } else {
       console.log(
-        'An error occured while resetting the destination repository',
+        'An error occurred while resetting the destination repository',
       );
     }
   }
 }
 
 const { stdout } = exec(
-  `cd ${options.source} && git standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`,
+  `cd ${options.source} && npx git-standup -d ${options.days} -m${options['folder-depth']} -D iso-strict`,
 );
 
 const commits = stdout.split('\n').reduce((formattedCommits, commit) => {
   let formattedCommit;
 
-  if (commit.match(/^\w{7,9}\s[-]*/)) {
+  if (commit.match(/^\w{7,10}\s[-]*/)) {
     formattedCommit = {
-      commit: commit.substring(0, 7),
+      commit: commit.split('-')[0],
       date: commit
         .match(/[(]\d{4}-\d{2}-\d{2}[T]\d{2}[:]\d{2}:\d{2}[^)]*/)[0]
         .replace(/\(|\)/g, ''),

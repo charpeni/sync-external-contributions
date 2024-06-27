@@ -2,21 +2,19 @@
 
 ![header](https://user-images.githubusercontent.com/7189823/30006552-96e72362-90c8-11e7-8034-56f45bf72771.jpg)
 
-Reads all your contributions you've authored on local repositories with [git-standup](https://github.com/kamranahmedse/git-standup) and create a GitHub contribution activity for every commits associated with you.
+Utilize [git-standup](https://github.com/kamranahmedse/git-standup) to read all your authored contributions on local repositories and generate a GitHub contribution activity for each commit linked to you.
 
-It **does not copy** the content of the commit, to respect NDA and privacy it only list all commits SHA you've authored and write it to a file. This is totally safe.
+**Privacy Focused:** The script respects your NDA and privacy by not copying commit content. Instead, it lists all authored commit SHAs and writes them to a file, ensuring a secure process.
 
-## Why?
+## Purpose
 
-This script exists because some contracts, projects, or businesses aren't using GitHub as source control. I found it odd that some weeks or months were missing in my GitHub contributions activity as if I wasn't active.
+This script is designed for situations where your work is not hosted on GitHub. Missing GitHub contributions can misrepresent your activity, especially when working on projects or contracts that use different source control systems.
 
-#### Should external contributions belong there?
+## Considerations
 
-To be honest, I'm not sure, but since private contributions can be showed and some are using this to show work activity, why not.
+### Should External Contributions Be Included?
 
-## Requirement
-
-- [`git standup`](https://github.com/kamranahmedse/git-standup)
+The inclusion of external contributions in your GitHub activity is debatable. However, since GitHub allows displaying private contributions, including these can reflect your complete activity.
 
 ## Usage
 

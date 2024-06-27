@@ -607,6 +607,11 @@ get-symbol-description@^1.0.0:
     call-bind "^1.0.2"
     get-intrinsic "^1.1.1"
 
+git-standup@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/git-standup/-/git-standup-2.3.2.tgz#fca5ced09b1271465c7716b74336f6b5d0aab0f1"
+  integrity sha512-vDYicak+2y+u6TCtneCx/j6LuT9WhJShyWjTB5dhjXqTB9TJ/uF444OmYwrMlaT0/CqxHOV9NXlML+CR8AJxdA==
+
 glob-parent@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
