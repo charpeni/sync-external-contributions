@@ -97,7 +97,9 @@ if (!options['dry-run'] && options.reset) {
     ).stdout;
 
     if (resetStdout && !options.silent) {
-      console.log(`${options.destination} were successfully reset.`);
+      console.log(
+        `${options.destination} (destination) was successfully reset.`,
+      );
     } else {
       console.log(
         'An error occurred while resetting the destination repository',
