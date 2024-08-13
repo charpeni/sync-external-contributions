@@ -3,6 +3,16 @@
   "version": "2.0.0",
   "description": "Sync your external contributions to GitHub",
   "repository": "charpeni/sync-external-contributions",
+  "keywords": [
+    "contribution",
+    "contributions",
+    "sync",
+    "graph",
+    "git",
+    "github",
+    "gitlab",
+    "bitbucket"
+  ],
   "main": "index.js",
   "bin": {
     "sync-external-contributions": "index.js"
