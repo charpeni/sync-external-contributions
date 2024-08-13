@@ -10,11 +10,10 @@ Utilize [git-standup](https://github.com/kamranahmedse/git-standup) to read all 
 
 This script is designed for situations where your work is not hosted on GitHub. Missing GitHub contributions can misrepresent your activity, especially when working on projects or contracts that use different source control systems.
 
-## Considerations
-
-### Should External Contributions Be Included?
-
-The inclusion of external contributions in your GitHub activity is debatable. However, since GitHub allows displaying private contributions, including these can reflect your complete activity.
+> [!NOTE]
+> **Should External Contributions Be Included?**
+>
+> The inclusion of external contributions in your GitHub activity is debatable. However, since GitHub allows displaying private contributions, including these can reflect your complete activity.
 
 ## Usage
 
